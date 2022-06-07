@@ -1,0 +1,15 @@
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\bin\Debug\net6.0\Lab C Hashtag.exe
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\bin\Debug\net6.0\Lab C Hashtag.deps.json
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\bin\Debug\net6.0\Lab C Hashtag.runtimeconfig.json
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\bin\Debug\net6.0\Lab C Hashtag.dll
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\bin\Debug\net6.0\Lab C Hashtag.pdb
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.csproj.AssemblyReference.cache
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.AssemblyInfoInputs.cache
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.AssemblyInfo.cs
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.csproj.CoreCompileInputs.cache
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.dll
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\refint\Lab C Hashtag.dll
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.pdb
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\Lab C Hashtag.genruntimeconfig.cache
+C:\Users\hi\source\repos\Lab C Hashtag\Lab C Hashtag\obj\Debug\net6.0\ref\Lab C Hashtag.dll
