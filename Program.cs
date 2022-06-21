@@ -1,61 +1,105 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Lab03
+namespace any
 {
     class Program
     {
-        public static void Main()
+        public static List<Project> projects = new List<Project>();
+        public static List<Employee> employees = new List<Employee>();
+        static void Main(string[] args)
         {
-            // declare a Car object reference named myCar
-            Car myCar;
-            // create a Car object, and assign its address to myCar
-            System.Console.WriteLine("Creating a Car object and assigning " + "its memory location to myCar");
-            myCar = new Car();
 
-            // assign values to the Car object's fields using myCar
-            myCar.make = "Toyota";
-            myCar.model = "MR2";
-            myCar.color = "black";
-            myCar.yearBuilt = 1995;
+            InitProject();
+            InitEmployee();
 
-            // display the field values using myCar
-            System.Console.WriteLine("myCar details:");
-            System.Console.WriteLine("myCar.make = " + myCar.make);
-            System.Console.WriteLine("myCar.model= " + myCar.model);
-            System.Console.WriteLine("myCar.color = " + myCar.color);
-            System.Console.WriteLine("myCar.yearBuilt=" + myCar.yearBuilt);
+         
+            var empQ1 = (from emp in employees
+                         where emp.EmployeeName.StartsWith("K")
+                         select emp).ToList();
 
-            // call the methods using myCar
-            myCar.Start();
-            myCar.Stop();
+            foreach (Employee name in empQ1)
+            {
+                Console.WriteLine(name.EmployeeName);
+            }
 
-            // declare another Car object reference and
-            // create another Car object
-            System.Console.WriteLine("Creating another Car object and" + "assigning its memory location to redPorsche");
-            Car redPorsche = new Car();
-            redPorsche.make = "Porsche";
-            redPorsche.model = "Boxster";
-            redPorsche.color = "red";
-            redPorsche.yearBuilt = 2000;
-            System.Console.WriteLine("redPorsche is a " + redPorsche.model);
-            //change the object referenced by the myCar object //reference to the object referenced by redPorshe
-            System.Console.WriteLine("Assigning redPorsche to  myCar");
-            myCar = redPorsche;
-            System.Console.WriteLine("myCar details:");
-            System.Console.WriteLine("myCar.make = " + myCar.make);
-            System.Console.WriteLine("myCar.model = " + myCar.model);
-            System.Console.WriteLine("myCar.color = " + myCar.color);
-            System.Console.WriteLine("myCar.yearBuilt = " + myCar.yearBuilt);
-            // assign null to myCar (myCar will no longer reference 
-            //an object)
-            myCar = null;
-            Console.ReadLine();
+       
+            var empQ2 = employees.Where(emp => emp.EmployeeName.StartsWith("T"));
+
+            foreach (Employee name in empQ2)
+            {
+                Console.WriteLine(name.EmployeeName);
+            }
+
+
+            
+            var empQ3 = from emp in employees
+                        group emp by emp.ProjectId;
+
+            var empQ4 = employees.GroupBy(emp => emp.EmployeeId);
+
+            Console.WriteLine("Du an ma nha vien tham gia: ");
+            foreach (var data in empQ4)
+            {
+                Console.WriteLine("ProjectId: " + data.Key + " : " + data.Count());
+            }
+
+            //JOIN
+            var empQ5 = from emp in employees
+                        join pro in projects on emp.ProjectId equals pro.ProjectId
+                        select new { emp.EmployeeName, pro.ProjectName };
+
+            //W2
+            var empQ6 = employees.Join(projects, emp => emp.ProjectId, pro => pro.ProjectId,
+
+                (emp, pro) => new { emp.EmployeeName, pro.ProjectName }
+                );
+
+            Console.WriteLine("Du an duoc lam boi nhan vien: ");
+            foreach (var data in empQ5)
+            {
+                Console.WriteLine(data.EmployeeName + " : " + data.ProjectName);
+            }
+
+
+
+
+
+
+
+
+
+        }
+        public static void InitProject()
+        {
+            projects.Add(new Project { ProjectId = 1, ProjectName = "VNPT" });
+            projects.Add(new Project { ProjectId = 2, ProjectName = "MB Bank" });
+            projects.Add(new Project { ProjectId = 3, ProjectName = "EVNE" });
+            projects.Add(new Project { ProjectId = 4, ProjectName = "ABC" });
+            projects.Add(new Project { ProjectId = 5, ProjectName = "Techbank" });
+            projects.Add(new Project { ProjectId = 6, ProjectName = "AVG corp" });
+            projects.Add(new Project { ProjectId = 7, ProjectName = "Vin group" });
+            projects.Add(new Project { ProjectId = 8, ProjectName = "FPT Aptech" });
+        }
+        public static void InitEmployee()
+        {
+            employees.Add(new Employee { EmployeeId = 101, EmployeeName = "Khoi", ProjectId = 1 });
+            employees.Add(new Employee { EmployeeId = 102, EmployeeName = "Minh", ProjectId = 2 });
+            employees.Add(new Employee { EmployeeId = 103, EmployeeName = "Nam", ProjectId = 2 });
+            employees.Add(new Employee { EmployeeId = 104, EmployeeName = "Duc", ProjectId = 2 });
+            employees.Add(new Employee { EmployeeId = 105, EmployeeName = "Viet", ProjectId = 3 });
+            employees.Add(new Employee { EmployeeId = 106, EmployeeName = "Ngoc", ProjectId = 4 });
+            employees.Add(new Employee { EmployeeId = 107, EmployeeName = "Trung", ProjectId = 5 });
+            employees.Add(new Employee { EmployeeId = 108, EmployeeName = "Thao", ProjectId = 2 });
+            employees.Add(new Employee { EmployeeId = 109, EmployeeName = "Hung", ProjectId = 6 });
+            employees.Add(new Employee { EmployeeId = 110, EmployeeName = "Anh", ProjectId = 6 });
+            employees.Add(new Employee { EmployeeId = 111, EmployeeName = "Van", ProjectId = 8 });
+            employees.Add(new Employee { EmployeeId = 112, EmployeeName = "Ngoc", ProjectId = 8 });
+            employees.Add(new Employee { EmployeeId = 113, EmployeeName = "Dung", ProjectId = 1 });
+            employees.Add(new Employee { EmployeeId = 114, EmployeeName = "Khoi", ProjectId = 7 });
+            employees.Add(new Employee { EmployeeId = 115, EmployeeName = "Khoi", ProjectId = 2 });
+
         }
     }
-
 }
-
