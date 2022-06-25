@@ -1,105 +1,137 @@
-﻿using System;
-using System.Linq;
+﻿using ConsoleApplication;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace any
+namespace APChastag
 {
     class Program
     {
-        public static List<Project> projects = new List<Project>();
-        public static List<Employee> employees = new List<Employee>();
+        List<Product> productList = new List<Product>();
         static void Main(string[] args)
         {
-
-            InitProject();
-            InitEmployee();
-
-         
-            var empQ1 = (from emp in employees
-                         where emp.EmployeeName.StartsWith("K")
-                         select emp).ToList();
-
-            foreach (Employee name in empQ1)
+            Program program = new Program();
+            try
             {
-                Console.WriteLine(name.EmployeeName);
+                while (true)
+                {
+                    program.menu();
+                    int choice = int.Parse(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            program.AddProductRecords();
+                            break;
+                        case 2:
+                            program.DisplayProductRecords();
+                            break;
+                        case 3:
+                            program.DeleteProductById();
+                            break;
+                        case 4:
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.WriteLine("Please choose your option !");
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error! An error occurred." + ex.Message);
+            }
+            Console.ReadLine();
+        }
+        public void menu()
+        {
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("1 .Add product records");
+            Console.WriteLine("2 .Display product records");
+            Console.WriteLine("3 .Delete product by Id");
+            Console.WriteLine("4 .Exit");
+            Console.Write("choice : ");
+        }
+
+        public void AddProductRecords()
+        {
+            Console.Write("\nEnter Product ID :");
+            string id = Console.ReadLine();
+            int count = 0;
+            foreach (var item in productList)
+            {
+                if (item.ProductId.Equals(id))
+                {
+                    Console.WriteLine("Product ID already existes = {0}", id);
+                    count = 1;
+                    break;
+                }
+
             }
 
-       
-            var empQ2 = employees.Where(emp => emp.EmployeeName.StartsWith("T"));
-
-            foreach (Employee name in empQ2)
+            if (count == 0)
             {
-                Console.WriteLine(name.EmployeeName);
+                Console.Write("Enter product Name : ");
+                string name = Console.ReadLine();
+                Console.Write("Enter Product Price : ");
+                float price = float.Parse(Console.ReadLine());
+                productList.Add(new Product() { ProductId = id, Name = name, Price = price });
+                Console.WriteLine("Add success !");
             }
-
-
-            
-            var empQ3 = from emp in employees
-                        group emp by emp.ProjectId;
-
-            var empQ4 = employees.GroupBy(emp => emp.EmployeeId);
-
-            Console.WriteLine("Du an ma nha vien tham gia: ");
-            foreach (var data in empQ4)
-            {
-                Console.WriteLine("ProjectId: " + data.Key + " : " + data.Count());
-            }
-
-            //JOIN
-            var empQ5 = from emp in employees
-                        join pro in projects on emp.ProjectId equals pro.ProjectId
-                        select new { emp.EmployeeName, pro.ProjectName };
-
-            //W2
-            var empQ6 = employees.Join(projects, emp => emp.ProjectId, pro => pro.ProjectId,
-
-                (emp, pro) => new { emp.EmployeeName, pro.ProjectName }
-                );
-
-            Console.WriteLine("Du an duoc lam boi nhan vien: ");
-            foreach (var data in empQ5)
-            {
-                Console.WriteLine(data.EmployeeName + " : " + data.ProjectName);
-            }
-
-
-
-
-
-
-
-
 
         }
-        public static void InitProject()
-        {
-            projects.Add(new Project { ProjectId = 1, ProjectName = "VNPT" });
-            projects.Add(new Project { ProjectId = 2, ProjectName = "MB Bank" });
-            projects.Add(new Project { ProjectId = 3, ProjectName = "EVNE" });
-            projects.Add(new Project { ProjectId = 4, ProjectName = "ABC" });
-            projects.Add(new Project { ProjectId = 5, ProjectName = "Techbank" });
-            projects.Add(new Project { ProjectId = 6, ProjectName = "AVG corp" });
-            projects.Add(new Project { ProjectId = 7, ProjectName = "Vin group" });
-            projects.Add(new Project { ProjectId = 8, ProjectName = "FPT Aptech" });
-        }
-        public static void InitEmployee()
-        {
-            employees.Add(new Employee { EmployeeId = 101, EmployeeName = "Khoi", ProjectId = 1 });
-            employees.Add(new Employee { EmployeeId = 102, EmployeeName = "Minh", ProjectId = 2 });
-            employees.Add(new Employee { EmployeeId = 103, EmployeeName = "Nam", ProjectId = 2 });
-            employees.Add(new Employee { EmployeeId = 104, EmployeeName = "Duc", ProjectId = 2 });
-            employees.Add(new Employee { EmployeeId = 105, EmployeeName = "Viet", ProjectId = 3 });
-            employees.Add(new Employee { EmployeeId = 106, EmployeeName = "Ngoc", ProjectId = 4 });
-            employees.Add(new Employee { EmployeeId = 107, EmployeeName = "Trung", ProjectId = 5 });
-            employees.Add(new Employee { EmployeeId = 108, EmployeeName = "Thao", ProjectId = 2 });
-            employees.Add(new Employee { EmployeeId = 109, EmployeeName = "Hung", ProjectId = 6 });
-            employees.Add(new Employee { EmployeeId = 110, EmployeeName = "Anh", ProjectId = 6 });
-            employees.Add(new Employee { EmployeeId = 111, EmployeeName = "Van", ProjectId = 8 });
-            employees.Add(new Employee { EmployeeId = 112, EmployeeName = "Ngoc", ProjectId = 8 });
-            employees.Add(new Employee { EmployeeId = 113, EmployeeName = "Dung", ProjectId = 1 });
-            employees.Add(new Employee { EmployeeId = 114, EmployeeName = "Khoi", ProjectId = 7 });
-            employees.Add(new Employee { EmployeeId = 115, EmployeeName = "Khoi", ProjectId = 2 });
 
+        public void DisplayProductRecords()
+        {
+            Console.WriteLine(string.Format("{0,-10} {1,-10} {2}", "ProductID", "Name", "Price"));
+            Console.WriteLine("---------------------------------------------------");
+            if (productList.Count > 0)
+            {
+                foreach (var item in productList)
+                {
+                    Console.WriteLine(
+                        string.Format("{0,-10} {1,-10} ${2}", item.ProductId, item.Name, item.Price)
+                        );
+                }
+            }
+            else
+            {
+                Console.WriteLine("No products !");
+            }
+
+        }
+        public void DeleteProductById()
+        {
+            Console.Write("Enter Product ID to Delete : ");
+            string id = Console.ReadLine();
+            int count = 0;
+
+            foreach (var item in productList)
+            {
+                if (item.ProductId.Equals(id))
+                {
+                    productList.Remove(
+                        productList.Find(
+                            p => { return p.ProductId == id; }
+                            )
+                        );
+                    Console.WriteLine("Delete sucess !");
+                    count = 1;
+                    break;
+                }
+                else
+                {
+                    count = 0;
+                }
+            }
+
+            if (count == 0)
+            {
+                Console.WriteLine("Not Found ProductId : {0}", id);
+            }
         }
     }
 }
